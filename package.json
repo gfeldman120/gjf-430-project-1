@@ -1,0 +1,26 @@
+{
+  "name": "gjf-430-project-1",
+  "version": "1.0.0",
+  "description": "Project 1 for IGME-430",
+  "homepage": "https://github.com/gfeldman120/gjf-430-project-1#readme",
+  "bugs": {
+    "url": "https://github.com/gfeldman120/gjf-430-project-1/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gfeldman120/gjf-430-project-1.git"
+  },
+  "license": "ISC",
+  "author": "GJF",
+  "type": "commonjs",
+  "main": "eslint.config.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "pretest": "eslint ./src --fix",
+    "test": "echo \"Error: no test specified\""
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.11.0"
+  }
+}
