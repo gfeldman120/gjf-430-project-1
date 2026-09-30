@@ -71,12 +71,7 @@ const postRequest = async (url) => {
                 });
             }
             else {
-                body = `name=${encodeURIComponent(name)}
-                &image=${encodeURIComponent(image)}
-                &types=${encodeURIComponent(types)}
-                &height=${encodeURIComponent(height)}
-                &weight=${encodeURIComponent(weight)}
-                &weaknesses=${encodeURIComponent(weaknesses)}`;
+                body = `name=${encodeURIComponent(name)}&image=${encodeURIComponent(image)}&types=${encodeURIComponent(types)}&height=${encodeURIComponent(height)}&weight=${encodeURIComponent(weight)}&weaknesses=${encodeURIComponent(weaknesses)}`;
             }
             break;
         case '/api/addEvolution':
@@ -89,8 +84,7 @@ const postRequest = async (url) => {
                 });
             }
             else {
-                body = `baseName=${encodeURIComponent(baseName)}
-                &evolutionName=${encodeURIComponent(evolutionName)}`;
+                body = `baseName=${encodeURIComponent(baseName)}&evolutionName=${encodeURIComponent(evolutionName)}`;
             }
             break;
         default:
@@ -101,7 +95,7 @@ const postRequest = async (url) => {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': format === 'JSON' ? 'application/json' : 'x-www-form-urlencoded'
+            'Content-Type': format === 'JSON' ? 'application/json' : 'application/x-www-form-urlencoded'
         },
         body: body
     });
