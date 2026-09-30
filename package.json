@@ -18,6 +18,7 @@
     "start": "node ./src/server.js",
     "pretest": "eslint ./src --fix",
     "test": "echo \"Error: no test specified\"",
+    "debug": "node --inspect ./src/server.js",
     "nodemon": "nodemon -e js,html,css --watch ./src --watch ./hosted ./src/server.js",
     "buildBundle": "webpack",
     "watchBundle": "webpack watch",
