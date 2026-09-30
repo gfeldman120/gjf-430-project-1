@@ -28,19 +28,19 @@ const parseBody = (request, response) => {
       request.body = JSON.parse(dataString);
     } else {
       // Do something, 404
-      return;
+      return responseHandler.notFound(request, response);
     }
     // From here, do something!
   });
 };
 
 // Different path names call different functions
-  const urlStruct = {
-    '/': responseHandler.getIndex,
-    '/style.css': responseHandler.getCSS,
-    '/bundle.js': responseHandler.getBundle,
-    default: responseHandler.notFound
-  };
+const urlStruct = {
+  '/': responseHandler.getIndex,
+  '/style.css': responseHandler.getCSS,
+  '/bundle.js': responseHandler.getBundle,
+  default: responseHandler.notFound
+};
 
 // Handle a request and figure out where it goes
 const onRequest = (request, response) => {
