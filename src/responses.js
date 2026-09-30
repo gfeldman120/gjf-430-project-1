@@ -4,7 +4,7 @@ const css = fs.readFileSync(`${__dirname}/../hosted/style.css`);
 const bundle = fs.readFileSync(`${__dirname}/../hosted/bundle.js`);
 
 // This object stores the JSON data
-let data = {};
+let data = [];
 
 // Parse the JSON file and put its contents into the data object
 const parseJSONFile = () => {
@@ -86,7 +86,13 @@ const getEvolutions = (request, response, parsedUrl) => {
   }
   const results = [];
   for (let i = 0; i < count; i++) {
-    if (i >= pokemon.next_evolution.length) {
+    // Checking length if it doesn't exist throws error, check first
+    if (pokemon.next_evolution) {
+      if (i >= pokemon.next_evolution.length) {
+        break;
+      }
+    }
+    else {
       break;
     }
     results.push(data[getIndexByName(pokemon.next_evolution[i].name)]);
@@ -96,7 +102,36 @@ const getEvolutions = (request, response, parsedUrl) => {
 
 // Add a pokemon
 const addPokemon = (request, response) => {
-  return respond(request, response, JSON.stringify({message: 'addPokemon'}), 'application/json', 200);
+  const name = request.body.name;
+  const image = request.body.image;
+  const type = request.body.types.split(',');
+  const height = `${Number(request.body.height).toFixed(1)} m`;
+  const weight = `${Number(request.body.weight).toFixed(1)} kg`;
+  const weaknesses = request.body.weaknesses.split(',');
+  // Required parameters
+  if (!name || !image || type[0] == '') {
+    return respond(request, response, JSON.stringify({
+      message: 'Missing required name, image or type parameters', id: 'badRequest'
+    }), 'application/json', 400);
+  }
+  // If a Pokemon with this name already exists, edit it
+  const index = getIndexByName(name);
+  if (index != -1) {
+    data[index].image = image;
+    data[index].type = type;
+    data[index].height = height;
+    data[index].weight = height;
+    data[index].weaknesses = weaknesses;
+    return respond(request, response, JSON.stringify({
+      message: 'Pokemon with this name already exists, data updated'
+    }), 'application/json', 204);
+  }
+  // Make a new Pokemon
+  const id = data.length + 1;
+  const num = String(id).padStart(3, '0');
+  const newPokemon = {id, num, name, image, type, height, weight, weaknesses}
+  data.push(newPokemon);
+  return respond(request, response, JSON.stringify(newPokemon), 'application/json', 201);
 }
 
 // Add an evolution
@@ -106,24 +141,23 @@ const addEvolution = (request, response) => {
 
 // Helper methods
 const getIndex = (request, response) => {
-  respond(request, response, index, 'text/html', 200);
+  return respond(request, response, index, 'text/html', 200);
 };
 
 const getCSS = (request, response) => {
-  respond(request, response, css, 'text/css', 200);
+  return respond(request, response, css, 'text/css', 200);
 }
 
 const notFound = (request, response) => {
-    const message = JSON.stringify(
-    {
+    const message = JSON.stringify({
       message: 'The page you are looking for was not found.',
       id: 'notFound'
     });
-    respond(request, response, message, 'application/json', 404);
+    return respond(request, response, message, 'application/json', 404);
 }
 
 const getBundle = (request, response) => {
-  respond(request, response, bundle, 'application/javascript', 200);
+  return respond(request, response, bundle, 'application/javascript', 200);
 };
 
 // Get the index of a Pokemon's name, return -1 if it doesn't exist
