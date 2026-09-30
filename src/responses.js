@@ -38,6 +38,43 @@ const getPokemon = (request, response, parsedUrl) => {
   notFound(request, response);
 }
 
+// Get elements of a given pokemon
+const getElements = (request, response, parsedUrl) => {
+  const name = parsedUrl.searchParams.get('name');
+  const types = parsedUrl.searchParams.get('types');
+  const weaknesses = parsedUrl.searchParams.get('weaknesses');
+  if (types == 'false' && weaknesses == 'false') {
+    return respond(request, response, JSON.stringify({
+      message: 'At least 1 query parameter must be true', id: 'badRequest'
+    }), 'application/json', 400);
+  }
+  const pokemon = data[getIndexByName(name)];
+  // This works for both no name and an invalid name
+  if (!pokemon) {
+    return respond(request, response, JSON.stringify({
+      message: 'Invalid name query parameter', id: 'badRequest'
+    }), 'application/json', 400);
+  }
+  const results = {}
+  if (types == 'true') {
+    results.types = pokemon.type;
+  }
+  if (weaknesses == 'true') {
+    results.weaknesses = pokemon.weaknesses;
+  }
+  return respond(request, response, JSON.stringify(results), 'application/json', 200);
+}
+
+// Find pokemon based on name
+const getEvolutions = (request, response, parsedUrl) => {
+  const name = parsedUrl.searchParams.get('name');
+  const pokemon = data[getIndexByName(name)];
+  if (pokemon) {
+    return respond(request, response, JSON.stringify(pokemon), 'application/json', 200);
+  }
+  notFound(request, response);
+}
+
 // Helper methods
 const getIndex = (request, response) => {
   respond(request, response, index, 'text/html', 200);
@@ -74,6 +111,8 @@ module.exports = {
     parseJSONFile,
     getAllPokemon,
     getPokemon,
+    getElements,
+    getEvolutions,
     getIndex,
     getCSS,
     notFound,

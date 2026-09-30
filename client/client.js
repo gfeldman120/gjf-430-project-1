@@ -27,9 +27,10 @@ const getRequest = async (url) => {
             break;
         case '/api/getElements':
             method = document.querySelector('input[name="getElementsMethod"]:checked').value;
+            const elementsName = document.querySelector('input[name="getElementsName"]').value;
             const types = document.querySelector('input[name="getElementsTypes"]').checked;
             const weaknesses = document.querySelector('input[name="getElementsWeaknesses"]').checked;
-            queryParams = new URLSearchParams(`types=${types}&weaknesses=${weaknesses}`);
+            queryParams = new URLSearchParams(`name=${elementsName}&types=${types}&weaknesses=${weaknesses}`);
             break;
         case '/api/getEvolutions':
             method = document.querySelector('input[name="getEvolutionsMethod"]:checked').value;
