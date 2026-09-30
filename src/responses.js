@@ -4,7 +4,7 @@ const css = fs.readFileSync(`${__dirname}/../hosted/style.css`);
 const bundle = fs.readFileSync(`${__dirname}/../hosted/bundle.js`);
 
 // This object stores the JSON data
-let data = {};
+let data = [];
 
 // Parse the JSON file and put its contents into the data object
 const parseJSONFile = () => {
@@ -26,6 +26,18 @@ const respond = (request, response, message, dataType, statusCode) => {
 // Give all of the data
 const getAllPokemon = (request, response) => {
   respond(request, response, JSON.stringify(data), 'application/json', 200);
+}
+
+// Find pokemon based on name
+const getPokemon = (request, response, parsedUrl) => {
+  const name = parsedUrl.searchParams.get('name');
+  let matches = [];
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].name === name) {
+      matches.push(data[i]);
+    }
+  }
+  return respond(request, response, JSON.stringify(matches), 'application/json', 200);
 }
 
 // Helper methods
@@ -53,6 +65,7 @@ const getBundle = (request, response) => {
 module.exports = {
     parseJSONFile,
     getAllPokemon,
+    getPokemon,
     getIndex,
     getCSS,
     notFound,

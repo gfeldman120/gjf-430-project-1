@@ -23,9 +23,7 @@ const getRequest = async (url) => {
         case '/api/getPokemon':
             method = document.querySelector('input[name="getPokemonMethod"]:checked').value;
             const name = document.querySelector('input[name="getPokemonName"]').value;
-            queryParams = new URLSearchParams({
-                name,
-            });
+            queryParams = new URLSearchParams(`name=${name}`);
         default:
             break;
     }

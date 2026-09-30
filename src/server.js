@@ -4,9 +4,9 @@ const responseHandler = require('./responses.js');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
-// Deal with incoming data
+// Parse incoming data
 const parseBody = (request, response) => {
-  const data = [];
+  const bodyData = [];
   // Upload unfinished
   request.on('error', () => {
     response.statusCode = 400;
@@ -14,12 +14,12 @@ const parseBody = (request, response) => {
   });
   // Push data as it arrives
   request.on('data', (chunk) => {
-    data.push(chunk);
+    bodyData.push(chunk);
   });
   // Data gotten
   request.on('end', () => {
     // Put data into string and check type
-    const dataString = Buffer.concat(data).toString();
+    const dataString = Buffer.concat(bodyData).toString();
     const dataType = request.headers['content-type'];
     // Parse
     if(dataType === 'application/x-www-form-urlencoded') {
@@ -27,15 +27,14 @@ const parseBody = (request, response) => {
     } else if (dataType === 'application/json') {
       request.body = JSON.parse(dataString);
     } else {
-      // Do something, 404
+      // 404
       return responseHandler.notFound(request, response);
     }
-    // From here, do something!
-
+    // Do something!
   });
 };
 
-// Different path names call different functions
+// Different path names call different functions (only those who only need request, response)
 const urlStruct = {
   '/': responseHandler.getIndex,
   '/style.css': responseHandler.getCSS,
@@ -53,7 +52,9 @@ const onRequest = (request, response) => {
   request.acceptedTypes = request.headers.accept ? request.headers.accept.split(',') : [];
   // Depending on pathname, handle the response
   const handlerFunction = urlStruct[parsedUrl.pathname];
-  if (handlerFunction) {
+  if (parsedUrl.pathname == '/api/getPokemon') {
+    responseHandler.getPokemon(request, response, parsedUrl);
+  } else if (handlerFunction) {
     handlerFunction(request, response);
   } else {
     urlStruct.default(request, response);
