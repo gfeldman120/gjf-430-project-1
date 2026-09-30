@@ -43,18 +43,20 @@ const getElements = (request, response, parsedUrl) => {
   const name = parsedUrl.searchParams.get('name');
   const types = parsedUrl.searchParams.get('types');
   const weaknesses = parsedUrl.searchParams.get('weaknesses');
-  if (types == 'false' && weaknesses == 'false') {
-    return respond(request, response, JSON.stringify({
-      message: 'At least 1 query parameter must be true', id: 'badRequest'
-    }), 'application/json', 400);
-  }
   const pokemon = data[getIndexByName(name)];
-  // This works for both no name and an invalid name
+  // Check if pokemon exists, also checks for no name and an invalid name
   if (!pokemon) {
     return respond(request, response, JSON.stringify({
       message: 'Invalid name query parameter', id: 'badRequest'
     }), 'application/json', 400);
   }
+  // Ensure at least 1 parameter is true
+  if (types == 'false' && weaknesses == 'false') {
+    return respond(request, response, JSON.stringify({
+      message: 'At least 1 query parameter must be true', id: 'badRequest'
+    }), 'application/json', 400);
+  }
+  // Create and give results
   const results = {}
   if (types == 'true') {
     results.types = pokemon.type;
@@ -67,12 +69,29 @@ const getElements = (request, response, parsedUrl) => {
 
 // Find pokemon based on name
 const getEvolutions = (request, response, parsedUrl) => {
-  const name = parsedUrl.searchParams.get('name');
+  const name = parsedUrl.searchParams.get('baseName');
   const pokemon = data[getIndexByName(name)];
-  if (pokemon) {
-    return respond(request, response, JSON.stringify(pokemon), 'application/json', 200);
+  // Check if pokemon exists, also checks for no name and an invalid name
+  if (!pokemon) {
+    return respond(request, response, JSON.stringify({
+      message: 'Invalid name query parameter', id: 'badRequest'
+    }), 'application/json', 400);
   }
-  notFound(request, response);
+  const count = parsedUrl.searchParams.get('count');
+  // Ensure count is valid
+  if (count < 1) {
+    return respond(request, response, JSON.stringify({
+      message: 'Count parameter is too low', id: 'badRequest'
+    }), 'application/json', 400);
+  }
+  const results = [];
+  for (let i = 0; i < count; i++) {
+    if (i >= pokemon.next_evolution.length) {
+      break;
+    }
+    results.push(data[getIndexByName(pokemon.next_evolution[i].name)]);
+  }
+  return respond(request, response, JSON.stringify(results), 'application/json', 200);
 }
 
 // Helper methods
