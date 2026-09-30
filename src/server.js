@@ -34,35 +34,27 @@ const parseBody = (request, response) => {
   });
 };
 
+// Different path names call different functions
+  const urlStruct = {
+    '/': responseHandler.getIndex,
+    '/style.css': responseHandler.getCSS,
+    '/bundle.js': responseHandler.getBundle,
+    default: responseHandler.notFound
+  };
+
+// Handle a request and figure out where it goes
 const onRequest = (request, response) => {
   // Setup parse URL
   const protocol = request.connection.encrypted ? 'https' : 'http';
   const parsedUrl = new URL(request.url, `${protocol}://${request.headers.host}`);
-  // Get accepted types frin request
+  // Get accepted types in request
   request.acceptedTypes = request.headers.accept ? request.headers.accept.split(',') : [];
-  // Depending on pathname and parameters, handle the response
-  if(request.method === 'POST') {
-    switch (parsedUrl.pathname) {
-      default:
-        responseHandler.notFound(request, response);
-        break;
-    }
-  }
-  else {
-    switch (parsedUrl.pathname) {
-      case '/':
-        responseHandler.getIndex(request, response);
-        break;
-      case '/style.css':
-        responseHandler.getCSS(request, response);
-        break;
-      case '/bundle.js':
-        responseHandler.getBundle(request, response);
-        break;
-      default:
-        responseHandler.notFound(request, response);
-        break;
-    }
+  // Depending on pathname, handle the response
+  const handlerFunction = urlStruct[parsedUrl.pathname];
+  if (handlerFunction) {
+    handlerFunction(request, response);
+  } else {
+    urlStruct.default(request, response);
   }
 };
 
