@@ -94,6 +94,16 @@ const getEvolutions = (request, response, parsedUrl) => {
   return respond(request, response, JSON.stringify(results), 'application/json', 200);
 }
 
+// Add a pokemon
+const addPokemon = (request, response) => {
+  return respond(request, response, JSON.stringify({message: 'addPokemon'}), 'application/json', 200);
+}
+
+// Add an evolution
+const addEvolution = (request, response) => {
+  return respond(request, response, JSON.stringify({message: 'addEvolution'}), 'application/json', 200);
+}
+
 // Helper methods
 const getIndex = (request, response) => {
   respond(request, response, index, 'text/html', 200);
@@ -132,6 +142,8 @@ module.exports = {
     getPokemon,
     getElements,
     getEvolutions,
+    addPokemon,
+    addEvolution,
     getIndex,
     getCSS,
     notFound,
