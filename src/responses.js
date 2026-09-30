@@ -25,7 +25,7 @@ const respond = (request, response, message, dataType, statusCode) => {
 
 // Give all of the data
 const getAllPokemon = (request, response) => {
-  respond(request, response, JSON.stringify(data), 'application/json', 200);
+  return respond(request, response, JSON.stringify(data), 'application/json', 200);
 }
 
 // Find pokemon based on name
@@ -35,7 +35,9 @@ const getPokemon = (request, response, parsedUrl) => {
   if (pokemon) {
     return respond(request, response, JSON.stringify(pokemon), 'application/json', 200);
   }
-  notFound(request, response);
+  return respond(request, response, JSON.stringify({
+      message: 'Invalid name query parameter', id: 'badRequest'
+  }), 'application/json', 400);
 }
 
 // Get elements of a given pokemon
@@ -136,7 +138,33 @@ const addPokemon = (request, response) => {
 
 // Add an evolution
 const addEvolution = (request, response) => {
-  return respond(request, response, JSON.stringify({message: 'addEvolution'}), 'application/json', 200);
+  const baseName = request.body.baseName;
+  const basePokemon = data[getIndexByName(baseName)];
+  // See if base Pokemon exists, also catches empty names
+  if (!basePokemon) {
+    return respond(request, response, JSON.stringify({
+      message: 'Invalid name query parameter', id: 'badRequest'
+    }), 'application/json', 400);
+  }
+  const evolutionName = request.body.evolutionName;
+  const evolutionPokemon = data[getIndexByName(evolutionName)];
+  // See if evolution Pokemon exists, also catches empty names
+  if (!evolutionPokemon) {
+    return respond(request, response, JSON.stringify({
+      message: 'Invalid name query parameter', id: 'badRequest'
+    }), 'application/json', 400);
+  }
+  // Make the evolution data, add it to the base Pokemon and send data
+  const evolution = {
+    num: evolutionPokemon.num,
+    name: evolutionPokemon.name
+  }
+  // Create next_evolution if it doesn't already exist, then add to it
+  if (!basePokemon.next_evolution) {
+    basePokemon.next_evolution = [];
+  }
+  basePokemon.next_evolution.push(evolution);
+  return respond(request, response, JSON.stringify(basePokemon), 'application/json', 200);
 }
 
 // Helper methods
