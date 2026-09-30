@@ -1,6 +1,7 @@
 const fs = require('fs');
-const index = fs.readFileSync(`${__dirname}/../client/client.html`);
-const css = fs.readFileSync(`${__dirname}/../client/style.css`);
+const index = fs.readFileSync(`${__dirname}/../hosted/client.html`);
+const css = fs.readFileSync(`${__dirname}/../hosted/style.css`);
+const bundle = fs.readFileSync(`${__dirname}/../hosted/bundle.js`);
 
 // This object stores the JSON data
 let data = {};
@@ -40,9 +41,14 @@ const notFound = (request, response) => {
     respond(request, response, message, 'application/json', 404);
 }
 
+const getBundle = (request, response) => {
+  respond(request, response, bundle, 'application/javascript', 200);
+};
+
 module.exports = {
     parseJSONFile,
     getIndex,
     getCSS,
     notFound,
+    getBundle,
 }

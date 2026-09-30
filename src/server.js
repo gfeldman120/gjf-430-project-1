@@ -56,6 +56,9 @@ const onRequest = (request, response) => {
       case '/style.css':
         responseHandler.getCSS(request, response);
         break;
+      case '/bundle.js':
+        responseHandler.getBundle(request, response);
+        break;
       default:
         responseHandler.notFound(request, response);
         break;
