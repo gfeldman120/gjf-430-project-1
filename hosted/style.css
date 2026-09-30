@@ -72,7 +72,11 @@ body {
 }
 
 #content {
-  max-height: 75vh;
+  position: fixed;
+  top: 20px;
+  right: 0;
+  height: 100%;
+  max-height: calc(100vh - 62px);
   padding: 10px;
   border: 1px solid rgb(200, 200, 200);
   border-radius: 5px;

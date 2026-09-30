@@ -143,7 +143,7 @@ const addEvolution = (request, response) => {
   // See if base Pokemon exists, also catches empty names
   if (!basePokemon) {
     return respond(request, response, JSON.stringify({
-      message: 'Invalid name query parameter', id: 'badRequest'
+      message: 'Invalid base name query parameter', id: 'badRequest'
     }), 'application/json', 400);
   }
   const evolutionName = request.body.evolutionName;
@@ -151,7 +151,7 @@ const addEvolution = (request, response) => {
   // See if evolution Pokemon exists, also catches empty names
   if (!evolutionPokemon) {
     return respond(request, response, JSON.stringify({
-      message: 'Invalid name query parameter', id: 'badRequest'
+      message: 'Invalid evolution name query parameter', id: 'badRequest'
     }), 'application/json', 400);
   }
   // Make the evolution data, add it to the base Pokemon and send data
