@@ -34,7 +34,14 @@ const parseBody = (request, response) => {
   });
 };
 
-// Different path names call different functions (only those who only need request, response)
+// Different path names call different functions (only those who only need request, response AND parsedUrl)
+const urlStruct_parsedUrl = {
+  '/api/getPokemon': responseHandler.getPokemon,
+  '/api/getElements': responseHandler.getElements,
+  '/api/getEvolutions': responseHandler.getEvolutions,
+}
+
+// Functions that do NOT need parsedUrl
 const urlStruct = {
   '/': responseHandler.getIndex,
   '/style.css': responseHandler.getCSS,
@@ -51,9 +58,11 @@ const onRequest = (request, response) => {
   // Get accepted types in request
   request.acceptedTypes = request.headers.accept ? request.headers.accept.split(',') : [];
   // Depending on pathname, handle the response
+  const handlerFunction_parsedUrl = urlStruct_parsedUrl[parsedUrl.pathname];
   const handlerFunction = urlStruct[parsedUrl.pathname];
-  if (parsedUrl.pathname == '/api/getPokemon') {
-    responseHandler.getPokemon(request, response, parsedUrl);
+  // Functions that need parsedUrl have their own struct due to parameter requirements
+  if (handlerFunction_parsedUrl) {
+    handlerFunction_parsedUrl(request, response, parsedUrl);
   } else if (handlerFunction) {
     handlerFunction(request, response);
   } else {
