@@ -1,15 +1,13 @@
 // Take the response and print it out
 const handleResponse = async (response) => {
     const content = document.querySelector('#content');
-    // Remove last text
-    content.innerHTML = '';
     // Show output
     let text = await response.text();
     if(text) {
-        content.innerHTML += `${text}<br>`;
+        content.innerHTML = `${text}`;
     }
     else {
-        content.innerHTML += `Received response, no body.<br>`;
+        content.innerHTML = `Received response, no body.`;
     }
 }
 
