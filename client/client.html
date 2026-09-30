@@ -7,8 +7,22 @@
     <link rel="stylesheet" type="text/css" href="/style.css">
     <script>
 
-        const init = () => {
+        const handleResponse = async () => {
+            // Something
+        }
 
+        // GET/HEAD
+        const getRequest = async () => {
+            // Something
+            handleResponse();
+        }
+
+        const init = () => {
+            const getAllPokemonButton = document.querySelector('#getAllPokemon');
+            addUserButton.addEventListener('submit', (e) => { 
+                e.preventDefault();
+                getRequest();
+            });
         }
 
         window.onload = init;
@@ -16,7 +30,29 @@
     </script>
 </head>
 <body>
-    <h1>IGME-430 Project 1</h1>
-    <h2>Gavin Feldman</h2>
+    <div id="header">
+        <p><a href="">App</a> | <a href="">Documentation</a></p>
+        <h1>IGME-430 Project 1</h1>
+        <h2>Gavin Feldman</h2>
+    </div>
+    
+    <div id="core">
+        <div class="item">
+            <div class="titleBox">
+                <h3 class="title">/api/getAllPokemon</h3>
+                <h3 class="code">GET</h3>
+                <h3 class="code">HEAD</h3>
+            </div>
+            <div class="paramBox">
+                <div class="methodSelect">
+                    <label><input type="radio" name="method" value="GET" checked>GET</label>
+                    <label><input type="radio" name="method" value="HEAD" checked>HEAD</label>
+                </div>
+                <button type="submit" id="getAllPokemon" value="getAllPokemon">Send Request</button>
+            </div>
+        </div>
+
+        <p id="content">User facing "console".</p>
+    </div>
 </body>
 </html>
