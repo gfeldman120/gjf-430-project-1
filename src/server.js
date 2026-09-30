@@ -31,6 +31,7 @@ const parseBody = (request, response) => {
       return responseHandler.notFound(request, response);
     }
     // From here, do something!
+
   });
 };
 
@@ -39,6 +40,7 @@ const urlStruct = {
   '/': responseHandler.getIndex,
   '/style.css': responseHandler.getCSS,
   '/bundle.js': responseHandler.getBundle,
+  '/api/getAllPokemon': responseHandler.getAllPokemon,
   default: responseHandler.notFound
 };
 

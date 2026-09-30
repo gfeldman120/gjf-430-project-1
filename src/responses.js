@@ -23,6 +23,11 @@ const respond = (request, response, message, dataType, statusCode) => {
   response.end();
 };
 
+// Give all of the data
+const getAllPokemon = (request, response) => {
+  respond(request, response, JSON.stringify(data), 'application/json', 200);
+}
+
 // Helper methods
 const getIndex = (request, response) => {
   respond(request, response, index, 'text/html', 200);
@@ -47,6 +52,7 @@ const getBundle = (request, response) => {
 
 module.exports = {
     parseJSONFile,
+    getAllPokemon,
     getIndex,
     getCSS,
     notFound,

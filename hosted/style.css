@@ -72,7 +72,9 @@ body {
 }
 
 #content {
+  max-height: 75vh;
   padding: 10px;
   border: 1px solid rgb(200, 200, 200);
   border-radius: 5px;
+  overflow: scroll;
 }
