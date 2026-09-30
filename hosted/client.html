@@ -15,22 +15,57 @@
     </div>
     
     <div id="core">
-        <div class="item">
-            <div class="titleBox">
-                <h3 class="title">/api/getAllPokemon</h3>
-                <h3 class="code">GET</h3>
-                <h3 class="code">HEAD</h3>
-            </div>
-            <div class="paramBox">
-                <div class="methodSelect">
-                    <label><input type="radio" name="method" value="GET" checked>GET</label>
-                    <label><input type="radio" name="method" value="HEAD" checked>HEAD</label>
+        <div id="items">
+
+            <div class="item">
+                <div class="titleBox">
+                    <h3 class="title">/api/getAllPokemon</h3>
+                    <h3 class="code">GET</h3>
+                    <h3 class="code">HEAD</h3>
                 </div>
-                <button type="submit" id="getAllPokemon" value="getAllPokemon">Send Request</button>
+                <div class="paramBox">
+                    <div class="methodSelect">
+                        <label><input type="radio" name="getAllPokemonMethod" value="GET" checked>GET</label>
+                        <label><input type="radio" name="getAllPokemonMethod" value="HEAD">HEAD</label>
+                    </div>
+                    <button type="submit" id="getAllPokemon">Send Request</button>
+                </div>
             </div>
+
+            <div class="item">
+                <div class="titleBox">
+                    <h3 class="title">/api/getPokemon</h3>
+                    <h3 class="code">GET</h3>
+                    <h3 class="code">HEAD</h3>
+                </div>
+                <div class="paramBox">
+                    <label>Name: <input type="text" name="getPokemonName"></label>
+                    <div class="methodSelect">
+                        <label><input type="radio" name="getPokemonMethod" value="GET" checked>GET</label>
+                        <label><input type="radio" name="getPokemonMethod" value="HEAD">HEAD</label>
+                    </div>
+                    <button type="submit" id="getPokemon">Send Request</button>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="titleBox">
+                    <h3 class="title">/api/addPokemon</h3>
+                    <h3 class="code">POST</h3>
+                </div>
+                <div class="paramBox">
+                    <label>Name: <input type="text" name="addPokemonName"></label>
+                    <div class="methodSelect">
+                        <label><input type="radio" name="addPokemonFormat" value="JSON" checked>JSON</label>
+                        <label><input type="radio" name="addPokemonFormat" value="x-www-form-urlencoded">x-www-form-urlencoded</label>
+                    </div>
+                    <button type="submit" id="addPokemon">Send Request</button>
+                </div>
+            </div>
+
         </div>
 
-        <p id="content">User facing "console".</p>
+        <p id="content">Output will show here.</p>
     </div>
 </body>
 </html>

@@ -37,8 +37,6 @@ body {
 #core > * {
   width: 48%;
   margin: 0% 1% 0% 1%;
-  border: 1px solid rgb(200, 200, 200);
-  border-radius: 5px;
 }
 
 .item {
@@ -47,6 +45,7 @@ body {
   border: 1px solid rgb(200, 200, 200);
   border-radius: 5px;
   padding: 10px 10px 10px 20px;
+  margin: 0 0 20px 0;
 }
 
 .titleBox {
@@ -74,4 +73,6 @@ body {
 
 #content {
   padding: 10px;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 5px;
 }
