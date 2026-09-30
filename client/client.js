@@ -1,15 +1,12 @@
 // Take the response and print it out
 const handleResponse = async (response) => {
     const content = document.querySelector('#content');
-    // Remove 1st time text
-    if(content.innerHTML === 'Output will show here.') {
-        content.innerHTML = '';
-    }
+    // Remove last text
+    content.innerHTML = '';
     // Show output
     let text = await response.text();
     if(text) {
-        let jsonString = JSON.stringify(text);
-        content.innerHTML += `${jsonString}<br>`;
+        content.innerHTML += `${text}<br>`;
     }
     else {
         content.innerHTML += `Received response, no body.<br>`;
@@ -35,28 +32,46 @@ const getRequest = async (url) => {
             break;
     }
     // Include query parameters if they exist
-    let response;
-    if (queryParams) {
-        response = await fetch(`url?${queryParams}`, {
-            method: method,
-            headers: {
-                'Accept': 'application/json',
-            },
-        });
-    }
-    else {
-        response = await fetch('url', {
-            method: method,
-            headers: {
-                'Accept': 'application/json',
-            },
-        });
-    }
+    const response = await fetch(queryParams ? `${url}?${queryParams}` : url, {
+        method: method,
+        headers: {
+            'Accept': 'application/json',
+        },
+    });
     handleResponse(response);
 }
 
 // POST
 const postRequest = async (url) => {
+    let body;
+    let format;
+    // Get data format and create body based on it
+    switch (url) {
+        case '/api/addPokemon':
+            format = document.querySelector('input[name="addPokemonFormat"]:checked').value;
+            const name = document.querySelector('input[name="addPokemonName"]').value;
+            if (format === 'JSON') {
+                body = JSON.stringify({
+                    name
+                });
+            }
+            else {
+                body = `name=${encodeURIComponent(name)}`;
+                // body = `name=${encodeURIComponent(name)}& ... `;
+            }
+            break;
+        default:
+            break;
+    }
+    // Include query parameters if they exist
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': format === 'JSON' ? 'application/json' : 'x-www-form-urlencoded'
+        },
+        body: body
+    });
     handleResponse(response);
 }
 
