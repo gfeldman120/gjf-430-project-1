@@ -30,7 +30,7 @@
                     <div>
                         <h3>Example</h3>
                         <p>Request: <span class='mono'>/api/getAllPokemon</span></p>
-                        <p>Result: <span class='mono'>Some long array</span></p>
+                        <p>Result: <span class='mono'>[{"id":1,"num":"001","name":"Bulbasaur","img":"http://www.serebii.net/pokemongo/pokemon/001.png","type":["Grass","Poison"],"height":"0.71 m","weight":"6.9 kg","weaknesses":["Fire","Ice","Flying","Psychic"],"next_evolution":[{"num":"002","name":"Ivysaur"},{"num":"003","name":"Venusaur"}]},{"id":2,"num":"002","name":"Ivysaur","img":"http://www.serebii.net/pokemongo/pokemon/002.png","type":["Grass","Poison"],"height":"0.99 m","weight":"13.0 kg","weaknesses":["Fire","Ice","Flying","Psychic"],"next_evolution":[{"num":"003","name":"Venusaur"}]},{"id":3,"num":"003","name":"Venusaur","img":"http://www.serebii.net/pokemongo/pokemon/003.png","type":["Grass","Poison"],"height":"2.01 m","weight":"100.0 kg","weaknesses":["Fire","Ice","Flying","Psychic"]},</span>... continued ... <span class='mono'>]</span></p>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                     <div>
                         <h3>Example</h3>
                         <p>Request: <span class='mono'>/api/getPokemon?name=Pikachu</span></p>
-                        <p>Result: <span class='mono'>Some long array</span></p>
+                        <p>Result: <span class='mono'>{"id":25,"num":"025","name":"Pikachu","img":"http://www.serebii.net/pokemongo/pokemon/025.png","type":["Electric"],"height":"0.41 m","weight":"6.0 kg","weaknesses":["Ground"],"next_evolution":[{"num":"026","name":"Raichu"}]}</span></p>
                     </div>
                 </div>
             </div>
@@ -80,9 +80,15 @@
                         <p>A JSON object containing arrays for the types and/or weaknesses</p>
                     </div>
                     <div>
-                        <h3>Example</h3>
-                        <p>Request: <span class='mono'>/api/getElements?types=true&elements=true</span></p>
-                        <p>Result: <span class='mono'>Some long array</span></p>
+                        <h3>Example 1</h3>
+                        <p>Request: <span class='mono'>/api/getElements?name=Charizard&types=true&weaknesses=true</span></p>
+                        <p>Result: <span class='mono'>{"types":["Fire","Flying"],"weaknesses":["Water","Electric","Rock"]}</span></p>
+                        <h3>Example 2</h3>
+                        <p>Request: <span class='mono'>/api/getElements?name=Charizard&types=true&weaknesses=false</span></p>
+                        <p>Result: <span class='mono'>{"types":["Fire","Flying"]}</span></p>
+                        <h3>Example 3</h3>
+                        <p>Request: <span class='mono'>/api/getElements?name=Charizard&types=false&weaknesses=true</span></p>
+                        <p>Result: <span class='mono'>{"weaknesses":["Water","Electric","Rock"]}</span></p>
                     </div>
                 </div>
             </div>
@@ -106,9 +112,12 @@
                         <p>If evolutions exist, an array of all evolutions as JSON objects (NOT the shortened versions stored in the base named Pokemon)</p>
                     </div>
                     <div>
-                        <h3>Example</h3>
-                        <p>Request: <span class='mono'>/api/getEvolutions?baseName=Charmander&count=2</span></p>
-                        <p>Result: <span class='mono'>Some long array</span></p>
+                        <h3>Example 1</h3>
+                        <p>Request: <span class='mono'>/api/getEvolutions?baseName=Bulbasaur&count=25</span></p>
+                        <p>Result: <span class='mono'>[{"id":2,"num":"002","name":"Ivysaur","img":"http://www.serebii.net/pokemongo/pokemon/002.png","type":["Grass","Poison"],"height":"0.99 m","weight":"13.0 kg","weaknesses":["Fire","Ice","Flying","Psychic"],"next_evolution":[{"num":"003","name":"Venusaur"}]},{"id":3,"num":"003","name":"Venusaur","img":"http://www.serebii.net/pokemongo/pokemon/003.png","type":["Grass","Poison"],"height":"2.01 m","weight":"100.0 kg","weaknesses":["Fire","Ice","Flying","Psychic"]}]</span></p>
+                        <h3>Example 2</h3>
+                        <p>Request: <span class='mono'>/api/getEvolutions?baseName=Bulbasaur&count=1</span></p>
+                        <p>Result: <span class='mono'>[{"id":2,"num":"002","name":"Ivysaur","img":"http://www.serebii.net/pokemongo/pokemon/002.png","type":["Grass","Poison"],"height":"0.99 m","weight":"13.0 kg","weaknesses":["Fire","Ice","Flying","Psychic"],"next_evolution":[{"num":"003","name":"Venusaur"}]}]</span></p>
                     </div>
                 </div>
             </div>
@@ -132,14 +141,14 @@
                     </div>
                     <div>
                         <h3>Returns</h3>
-                        <p>If the name is unqiue, The JSON object of the newly created addPokemon
-                            <br>If the name isn't unique: Nothing as a 204 (overwrites existing Pokemon)
-                        </p>
+                        <p>If the name is unqiue, The JSON object of the newly created addPokemon</p>
+                        <br>
+                        <p>If the name isn't unique: Nothing, 204 (overwrites existing Pokemon on server)</p>
                     </div>
                     <div>
                         <h3>Example</h3>
                         <p>Request: <span class='mono'>/api/addPokemon?name=MyPokemon&image=https://www.imageLink.com&types=Fire,Grass&height=5.3&weight=2.1&weaknesses=Water</span></p>
-                        <p>Result: <span class='mono'>Some long array</span></p>
+                        <p>Result: <span class='mono'>{"id":152,"num":"152","name":"MyPokemon","image":"https://www.imageLink.com","type":["Fire","Grass"],"height":"5.3 m","weight":"2.1 kg","weaknesses":["Water"]}</span></p>
                     </div>
                 </div>
             </div>
@@ -164,7 +173,7 @@
                     <div>
                         <h3>Example</h3>
                         <p>Request: <span class='mono'>/api/addEvolution?baseName=Pikachu&evolutionName=Rattata</span></p>
-                        <p>Result: <span class='mono'>Some long array</span></p>
+                        <p>Result: <span class='mono'>{"id":25,"num":"025","name":"Pikachu","img":"http://www.serebii.net/pokemongo/pokemon/025.png","type":["Electric"],"height":"0.41 m","weight":"6.0 kg","weaknesses":["Ground"],"next_evolution":[{"num":"026","name":"Raichu"},{"num":"019","name":"Rattata"}]}</span></p>
                     </div>
                 </div>
             </div>
