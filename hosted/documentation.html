@@ -23,7 +23,7 @@
                     <h3 class="code">HEAD</h3>
                 </div>
                 <div class="paramBox">
-                    <div></div>
+                    <div>
                         <h3>Returns</h3>
                         <p>A JSON array of all Pokemon.</p>
                     </div>
@@ -48,13 +48,122 @@
                             <li><span class='mono'>name</span> (required): The name of the Pokemon to get</li>
                         </ul>
                     </div>
-                    <div></div>
+                    <div>
                         <h3>Returns</h3>
                         <p>The JSON object for a specific Pokemon.</p>
                     </div>
                     <div>
                         <h3>Example</h3>
                         <p>Request: <span class='mono'>/api/getPokemon?name=Pikachu</span></p>
+                        <p>Result: <span class='mono'>Some long array</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="titleBox">
+                    <h3 class="title">/api/getElements</h3>
+                    <h3 class="code">GET</h3>
+                    <h3 class="code">HEAD</h3>
+                </div>
+                <div class="paramBox">
+                    <div>
+                        <h3>Query Params</h3>
+                        <ul>
+                            <li><span class='mono'>name</span> (required): The name of the Pokemon from which to get the elements</li>
+                            <li><span class='mono'>types</span> (required if weaknesses=false): If true, get the types of the named Pokemon</li>
+                            <li><span class='mono'>weaknesses</span> (required if types=false): If true, get the weaknesses of the named Pokemon</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Returns</h3>
+                        <p>A JSON object containing arrays for the types and/or weaknesses</p>
+                    </div>
+                    <div>
+                        <h3>Example</h3>
+                        <p>Request: <span class='mono'>/api/getElements?types=true&elements=true</span></p>
+                        <p>Result: <span class='mono'>Some long array</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="titleBox">
+                    <h3 class="title">/api/getEvolutions</h3>
+                    <h3 class="code">GET</h3>
+                    <h3 class="code">HEAD</h3>
+                </div>
+                <div class="paramBox">
+                    <div>
+                        <h3>Query Params</h3>
+                        <ul>
+                            <li><span class='mono'>baseName</span> (required): The name of the Pokemon from which to get the evolutions</li>
+                            <li><span class='mono'>count</span> (required): The maximum number of results to grab from the base named Pokemon</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Returns</h3>
+                        <p>If evolutions exist, an array of all evolutions as JSON objects (NOT the shortened versions stored in the base named Pokemon)</p>
+                    </div>
+                    <div>
+                        <h3>Example</h3>
+                        <p>Request: <span class='mono'>/api/getEvolutions?baseName=Charmander&count=2</span></p>
+                        <p>Result: <span class='mono'>Some long array</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="titleBox">
+                    <h3 class="title">/api/addPokemon</h3>
+                    <h3 class="code">POST</h3>
+                </div>
+                <div class="paramBox">
+                    <div>
+                        <h3>Query Params</h3>
+                        <ul>
+                            <li><span class='mono'>name</span> (required): The name of the new Pokemon</li>
+                            <li><span class='mono'>image</span> (required): The image of the Pokemon</li>
+                            <li><span class='mono'>types</span> (required): The types of the Pokemon, separated by commas</li>
+                            <li><span class='mono'>height</span> (optional): The height of the Pokemon</li>
+                            <li><span class='mono'>weight</span> (optional): The weight of the Pokemon</li>
+                            <li><span class='mono'>weaknesses</span> (optional): The weaknesses of the Pokemon, separated by commas</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Returns</h3>
+                        <p>If the name is unqiue, The JSON object of the newly created addPokemon
+                            <br>If the name isn't unique: Nothing as a 204 (overwrites existing Pokemon)
+                        </p>
+                    </div>
+                    <div>
+                        <h3>Example</h3>
+                        <p>Request: <span class='mono'>/api/addPokemon?name=MyPokemon&image=https://www.imageLink.com&types=Fire,Grass&height=5.3&weight=2.1&weaknesses=Water</span></p>
+                        <p>Result: <span class='mono'>Some long array</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="titleBox">
+                    <h3 class="title">/api/addEvolution</h3>
+                    <h3 class="code">POST</h3>
+                </div>
+                <div class="paramBox">
+                    <div>
+                        <h3>Query Params</h3>
+                        <ul>
+                            <li><span class='mono'>baseName</span> (required): The name of the Pokemon that will acquire the evolution</li>
+                            <li><span class='mono'>evolutionName</span> (required): The name of the Pokemon to add to the base named Pokemon, cannot already be an evolution of the base named Pokemon</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Returns</h3>
+                        <p>The JSON object of the base named Pokemon, now with the evolution appended to <span class='mono'>next_evolution</span></p>
+                    </div>
+                    <div>
+                        <h3>Example</h3>
+                        <p>Request: <span class='mono'>/api/addEvolution?baseName=Pikachu&evolutionName=Rattata</span></p>
                         <p>Result: <span class='mono'>Some long array</span></p>
                     </div>
                 </div>

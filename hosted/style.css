@@ -108,7 +108,7 @@ li {
 
 .mono {
   font-family: monospace;
-  background-color: black;
+  background-color: rgb(50, 50, 50);
   color: white;
-  padding: 5px;
+  padding: 2px;
 }

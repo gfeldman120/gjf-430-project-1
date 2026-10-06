@@ -164,6 +164,16 @@ const addEvolution = (request, response) => {
   if (!basePokemon.next_evolution) {
     basePokemon.next_evolution = [];
   }
+  else {
+    // Ensure evolution doesn't already exist
+    for (let i = 0; i < basePokemon.next_evolution.length; i++) {
+      if (basePokemon.next_evolution[i].name === evolutionPokemon.name) {
+        return respond(request, response, JSON.stringify({
+        message: 'Base Pokemon already has Evolution Pokemon as an evolution', id: 'badRequest'
+        }), 'application/json', 400);
+      }
+    }
+  }
   basePokemon.next_evolution.push(evolution);
   return respond(request, response, JSON.stringify(basePokemon), 'application/json', 200);
 }
