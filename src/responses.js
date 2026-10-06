@@ -1,5 +1,6 @@
 const fs = require('fs');
 const index = fs.readFileSync(`${__dirname}/../hosted/client.html`);
+const documentation = fs.readFileSync(`${__dirname}/../hosted/documentation.html`);
 const css = fs.readFileSync(`${__dirname}/../hosted/style.css`);
 const bundle = fs.readFileSync(`${__dirname}/../hosted/bundle.js`);
 
@@ -172,6 +173,10 @@ const getIndex = (request, response) => {
   return respond(request, response, index, 'text/html', 200);
 };
 
+const getDocumentation = (request, response) => {
+  return respond(request, response, documentation, 'text/html', 200);
+}
+
 const getCSS = (request, response) => {
   return respond(request, response, css, 'text/css', 200);
 }
@@ -207,6 +212,7 @@ module.exports = {
     addPokemon,
     addEvolution,
     getIndex,
+    getDocumentation,
     getCSS,
     notFound,
     getBundle,

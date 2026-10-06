@@ -34,9 +34,24 @@ body {
   margin: 0;
 }
 
+#coreDocumentation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+#core > *, #coreDocumentation > * {
+  margin: 0% 1% 0% 1%;
+}
+
 #core > * {
   width: 48%;
-  margin: 0% 1% 0% 1%;
+}
+
+#coreDocumentation > * {
+  width: 98%;
 }
 
 .item {
@@ -81,4 +96,19 @@ body {
   border: 1px solid rgb(200, 200, 200);
   border-radius: 5px;
   overflow: scroll;
+}
+
+ul {
+  padding-left: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.mono {
+  font-family: monospace;
+  background-color: black;
+  color: white;
+  padding: 5px;
 }

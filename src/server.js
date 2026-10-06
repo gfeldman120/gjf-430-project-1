@@ -14,6 +14,7 @@ const urlStruct_parsedUrl = {
 // Functions that do NOT need parsedUrl
 const urlStruct = {
   '/': responseHandler.getIndex,
+  '/documentation.html': responseHandler.getDocumentation,
   '/style.css': responseHandler.getCSS,
   '/bundle.js': responseHandler.getBundle,
   '/api/getAllPokemon': responseHandler.getAllPokemon,

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 1 Documentation</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+    <div id="header">
+        <p><a href="/">App</a> | <a href="/documentation.html">Documentation</a></p>
+        <h1>IGME-430 Project 1 (Documentation)</h1>
+        <h2>Gavin Feldman</h2>
+    </div>
+    
+    <div id="coreDocumentation">
+        <div id="items">
+
+            <div class="item">
+                <div class="titleBox">
+                    <h3 class="title">/api/getAllPokemon</h3>
+                    <h3 class="code">GET</h3>
+                    <h3 class="code">HEAD</h3>
+                </div>
+                <div class="paramBox">
+                    <div></div>
+                        <h3>Returns</h3>
+                        <p>A JSON array of all Pokemon.</p>
+                    </div>
+                    <div>
+                        <h3>Example</h3>
+                        <p>Request: <span class='mono'>/api/getAllPokemon</span></p>
+                        <p>Result: <span class='mono'>Some long array</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="titleBox">
+                    <h3 class="title">/api/getPokemon</h3>
+                    <h3 class="code">GET</h3>
+                    <h3 class="code">HEAD</h3>
+                </div>
+                <div class="paramBox">
+                    <div>
+                        <h3>Query Params</h3>
+                        <ul>
+                            <li><span class='mono'>name</span> (required): The name of the Pokemon to get</li>
+                        </ul>
+                    </div>
+                    <div></div>
+                        <h3>Returns</h3>
+                        <p>The JSON object for a specific Pokemon.</p>
+                    </div>
+                    <div>
+                        <h3>Example</h3>
+                        <p>Request: <span class='mono'>/api/getPokemon?name=Pikachu</span></p>
+                        <p>Result: <span class='mono'>Some long array</span></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
