@@ -102,9 +102,28 @@ body {
   overflow: scroll;
 }
 
+#content > div > p {
+  margin: 0;
+  padding: 0;
+}
+
 #lastPokemon {
-    float: right;
-    margin: 0 0 10px 10px;
+  float: right;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 5px;
+}
+
+#lastPokemon > img {
+  display: block;
+  margin: auto;
+}
+
+#lastPokemon > h3 {
+  text-align: center;
+  padding: 0;
+  margin: 0 0 7px 0;
 }
 
 ul {
@@ -124,4 +143,34 @@ li {
 
 .monoResult {
   font-family: monospace;
+}
+
+@media screen and (width <= 1110px) {
+  #core {
+    flex-direction: column;
+  }
+
+  #core > * {
+    width: 98%;
+  }
+
+  #lastItem {
+    margin-bottom: 0px;
+  }
+
+  #content {
+    display: block;
+    padding: 20px;
+    position: relative;
+    overflow: visible;
+    height: auto;
+    max-height: none;
+    margin: auto;
+    margin-bottom: 30px;
+    padding: 0;
+  }
+
+  #content > div > p {
+    padding: 10px;
+  }
 }
