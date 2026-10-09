@@ -1,3 +1,7 @@
+* {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 body {
   height: 100%;
   width: 100%;
@@ -98,6 +102,11 @@ body {
   overflow: scroll;
 }
 
+#lastPokemon {
+    float: right;
+    margin: 0 0 10px 10px;
+}
+
 ul {
   padding-left: 0;
 }
@@ -111,4 +120,8 @@ li {
   background-color: rgb(50, 50, 50);
   color: white;
   padding: 2px;
+}
+
+.monoResult {
+  font-family: monospace;
 }

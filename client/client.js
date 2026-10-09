@@ -5,9 +5,18 @@ const handleResponse = async (response) => {
     content.innerHTML += `<br>Content-Length: ${response.headers.get("content-length")}`;
     // Show output
     let text = await response.text();
+    let lastPokemonContent = '';
     if(text) {
-        content.innerHTML += `<br>Response: ${text}`;
+        // Get the last returned Pokemon (or last in the current response), display it on the page
+        let parsedData = JSON.parse(text);
+        let pokemon = Array.isArray(parsedData) ? parsedData[parsedData.length - 1] : parsedData;
+        // Ensure Pokemon has required elements for display
+        if ('num' in pokemon && 'name' in pokemon && 'img' in pokemon) {
+            lastPokemonContent = `<div id="lastPokemon"><img src="${pokemon.img}"><h3>${pokemon.num}: ${pokemon.name}</h3></div>`;
+        }
+        content.innerHTML += `<br>Response: <span class="monoResult">${text}</span>`;
     }
+    content.innerHTML = `${lastPokemonContent}<div><p>${content.innerHTML}</p></div>`;
 }
 
 // GET/HEAD
