@@ -17,6 +17,7 @@ const handleResponse = async (response) => {
         content.innerHTML += `<br>Response: <span class="monoResult">${text}</span>`;
     }
     content.innerHTML = `${lastPokemonContent}<div><p>${content.innerHTML}</p></div>`;
+    content.scrollIntoView();
 }
 
 // GET/HEAD
